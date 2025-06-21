@@ -47,6 +47,18 @@
 }
 #mobileControls {
   position: absolute;
+  bottom: 5px; /* 5px gap from bottom */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  z-index: 30;
+  pointer-events: auto;
+}
+
+
+#mobileControls {
+  position: absolute;
   bottom: 20px;
   width: 100%;
   display: flex;
@@ -93,8 +105,8 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const ship = {
-  x: canvas.width / 2,
-  y: canvas.height - 60,
+  x: canvas.width / 20,
+  y: canvas.height - 120,
   width: 40,
   height: 20,
   color: '#0ff',
@@ -139,8 +151,11 @@ function drawEnemies() {
       enemyBullets.push({ x: e.x, y: e.y + e.r });
     }
   });
-  enemies = enemies.filter(e => e.y < canvas.height);
+  // Remove enemies after they move off screen
+  enemies = enemies.filter(e => e.y < canvas.height + e.r);
 }
+  
+
 
 function drawEnemyBullets() {
   ctx.fillStyle = 'red';
